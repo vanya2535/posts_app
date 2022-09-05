@@ -5,10 +5,16 @@ class PostContoller {
     try {
       const { author, sort } = req.query
 
-      const posts = await Post.find()
-        .where('author.name')
-        .equals(author)
-        .sort(`${sort === 'asc' ? '-' : '+'}title`)
+      let posts
+
+      if (author) {
+        posts = await Post.find()
+          .where('author.name')
+          .equals(author)
+          .sort(`${sort === 'asc' ? '-' : '+'}title`)
+      } else {
+        posts = await Post.find().sort(`${sort === 'asc' ? '-' : '+'}title`)
+      }
 
       return res.status(200).json(posts)
     } catch (e) {
@@ -22,7 +28,9 @@ class PostContoller {
   async getAuthors(req, res) {
     try {
       const posts = await Post.find()
-      return res.status(200).json(posts.map(({ author }) => author))
+      return res
+        .status(200)
+        .json([...new Set(posts.map(({ author: { name } }) => name))])
     } catch (e) {
       console.log(e)
       return res
@@ -33,7 +41,7 @@ class PostContoller {
 
   async getPostInfo(req, res) {
     try {
-      const post = await Post.findById(req.params.id)
+      const post = await Post.findOne().where('id').equals(req.params.id)
 
       if (!post) {
         return res.status(404).json('Новость не найдена')
@@ -45,6 +53,26 @@ class PostContoller {
       return res
         .status(400)
         .json({ message: 'Ошибка в процессе получения данных новости' })
+    }
+  }
+
+  async addComment(req, res) {
+    try {
+      const post = await Post.findOne().where('id').equals(req.params.id)
+
+      if (!post) {
+        return res.status(404).json('Новость не найдена')
+      }
+
+      post.comments.unshift(req.body.comment)
+      await post.save()
+
+      return res.status(200).json(req.body.comment)
+    } catch (e) {
+      console.log(e)
+      return res
+        .status(400)
+        .json({ message: 'Ошибка в процессе публикации комментария' })
     }
   }
 

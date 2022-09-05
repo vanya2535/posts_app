@@ -5,9 +5,5 @@ export default {
 
   SET_AUTHORS(state, data) {
     state.authors = data
-  },
-
-  ADD_POST(state, data) {
-    state.posts.push(data)
   }
 }

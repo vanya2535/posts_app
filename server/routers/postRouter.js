@@ -7,5 +7,6 @@ router.get('/', postController.getPosts)
 router.get('/authors', postController.getAuthors)
 router.post('/', postController.createPost)
 router.get('/:id', postController.getPostInfo)
+router.post('/:id/comment', postController.addComment)
 
 module.exports = router

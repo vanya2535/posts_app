@@ -1,9 +1,9 @@
 export default {
-  GET_POSTS(state) {
+  ALL_POSTS(state) {
     return state.posts
   },
 
-  GET_AUTHORS(state) {
+  ALL_AUTHORS(state) {
     return state.authors
   }
 }
