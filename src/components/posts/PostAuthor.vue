@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex flex-col items-end text-xs text-gray-600">
     <p>{{ author.name }}</p>
     <p>{{ author.email }}</p>
   </div>

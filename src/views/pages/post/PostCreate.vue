@@ -1,19 +1,27 @@
 <template>
   <div>
-    <form @submit.prevent="createPost" @keydown.enter="createPost">
-      <FormInput
-        v-model="form.author.name"
-        label="Имя автора"
-        :error="errors.authorName"
-        @input="errors.authorName = ''"
-      />
+    <h1 class="text-2xl font-bold">Лента новостей</h1>
 
-      <FormInput
-        v-model="form.author.email"
-        label="E-mail автора"
-        :error="errors.authorEmail"
-        @input="errors.authorEmail = ''"
-      />
+    <form
+      class="mt-8 grid gap-6"
+      @submit.prevent="createPost"
+      @keydown.enter="createPost"
+    >
+      <div class="grid sm:grid-cols-2 gap-6 sm:gap-10">
+        <FormInput
+          v-model="form.author.name"
+          label="Имя автора"
+          :error="errors.authorName"
+          @input="errors.authorName = ''"
+        />
+
+        <FormInput
+          v-model="form.author.email"
+          label="E-mail автора"
+          :error="errors.authorEmail"
+          @input="errors.authorEmail = ''"
+        />
+      </div>
 
       <FormInput
         v-model="form.title"
@@ -30,7 +38,13 @@
         @input="errors.description = ''"
       />
 
-      <button :disabled="pending" type="submit">Опубликовать новость</button>
+      <button
+        class="w-full sm:w-1/2 p-2 mt-4 mx-auto rounded border border-slate-200 shadow-sm shadow-slate-500 bg-gray-100 hover:bg-slate-200 hover:bg-opacity-70 font-medium disabled:opacity-50"
+        :disabled="pending"
+        type="submit"
+      >
+        Опубликовать новость
+      </button>
     </form>
   </div>
 </template>

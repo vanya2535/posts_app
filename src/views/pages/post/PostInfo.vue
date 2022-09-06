@@ -2,24 +2,32 @@
   <div v-if="post">
     <PostBody :post="post" />
 
-    <form submit.prevent="addComment" @keydown.enter="addComment">
+    <form @submit.prevent="addComment" @keydown.enter="addComment">
       <FormInput
         v-model="comment"
         textarea
         label="Добавьте комментарий"
-        :error="commentError"
+        class="rounded-b-none"
       />
 
-      <button :disabled="pending" type="submit">Отправить</button>
+      <button
+        class="w-full p-2 mx-auto rounded rounded-t-none border border-slate-200 shadow-sm shadow-slate-500 bg-gray-100 hover:bg-slate-200 hover:bg-opacity-70 font-medium disabled:opacity-50"
+        :disabled="pending || !comment.length"
+        type="submit"
+      >
+        Отправить
+      </button>
     </form>
 
-    <h1>Комментарии:</h1>
+    <template v-if="post.comments.length">
+      <h1 class="mt-5 font-medium">Комментарии:</h1>
 
-    <PostComment
-      v-for="(comment, index) in post.comments"
-      :key="index"
-      :comment="comment"
-    />
+      <PostComment
+        v-for="(comment, index) in post.comments"
+        :key="index"
+        :comment="comment"
+      />
+    </template>
   </div>
   <div v-else-if="notFound">404 Новость не найдена</div>
 </template>
@@ -39,8 +47,7 @@ export default {
       post: null,
       notFound: false,
       pending: false,
-      comment: '',
-      commentError: ''
+      comment: ''
     }
   },
 
@@ -50,11 +57,6 @@ export default {
     async addComment() {
       try {
         this.pending = true
-
-        if (this.comment.length < 3) {
-          this.commentError = 'Минимальная длина комментария - 3 символа'
-          return
-        }
 
         const comment = await this.ADD_COMMENT({
           id: this.$route.params.id,

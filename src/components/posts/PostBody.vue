@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <h1>{{ post.title }}</h1>
-    <p>{{ post.description }}</p>
+  <div class="px-4 py-2 bg-slate-200 shadow-lg rounded-md">
+    <h1 class="text-lg font-bold">{{ post.title }}</h1>
+    <p class="text-sm" v-html="$getLayout(post.description)" />
     <PostAuthor :author="post.author" />
   </div>
 </template>

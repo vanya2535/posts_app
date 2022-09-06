@@ -1,13 +1,13 @@
 <template>
   <header
-    class="absolute w-3/4 sm:w-2/3 left-1/2 -translate-x-1/2 rounded-lg rounded-t-none shadow top-0 flex justify-center bg-indigo-800 p-2 text-white"
+    class="absolute left-0 right-0 top-0 py-3 px-12 bg-gray-800 shadow-xl"
   >
-    <router-link to="/" class="text-xs md:text-xl font-medium mr-10">
-      Новости
-    </router-link>
-    <router-link class="text-xs md:text-xl font-medium" to="/post/create">
-      Создать новость
-    </router-link>
+    <div
+      class="max-w-screen-xl mx-auto flex justify-center text-white text-xs sm:text-sm lg:text-base font-medium"
+    >
+      <router-link class="mr-10" to="/"> Новости </router-link>
+      <router-link to="/post/create"> Опубликовать новость </router-link>
+    </div>
   </header>
 </template>
 

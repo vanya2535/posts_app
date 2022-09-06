@@ -1,8 +1,28 @@
 <template>
   <div>
-    <DropdownSelect v-model="sortValue" :options="sortOptions" />
-    <DropdownSelect v-model="filterValue" filter :options="filterOptions" />
-    <PostItem v-for="post in ALL_POSTS" :key="post.id" :post="post" />
+    <h1 class="text-2xl font-bold">Лента новостей</h1>
+
+    <div class="mt-8 max-w-xl grid grid-cols-1 sm:grid-cols-2 gap-2">
+      <DropdownSelect
+        v-model="sortValue"
+        class="mr-10"
+        label="Сортировать по"
+        :options="sortOptions"
+      />
+
+      <DropdownSelect
+        v-model="filterValue"
+        label="Автор новости"
+        filter
+        :options="filterOptions"
+      />
+    </div>
+
+    <div
+      class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3"
+    >
+      <PostItem v-for="post in ALL_POSTS" :key="post.id" :post="post" />
+    </div>
   </div>
 </template>
 
@@ -17,7 +37,7 @@ export default {
 
   data() {
     return {
-      filterValue: { key: 'Не выбрано', value: '' },
+      filterValue: { key: 'Не выбран', value: '' },
       sortValue: { key: 'По возрастанию заголовка', value: 'asc' },
 
       sortOptions: [
@@ -32,7 +52,7 @@ export default {
 
     filterOptions() {
       return [
-        { key: 'Не выбрано', value: '' },
+        { key: 'Не выбран', value: '' },
         ...this.ALL_AUTHORS.map((author) => ({ key: author, value: author }))
       ]
     }
