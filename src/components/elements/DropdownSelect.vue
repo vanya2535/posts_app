@@ -102,7 +102,7 @@ export default {
     menuVisible(value) {
       if (value) {
         this.$nextTick(() => {
-          this.$refs.input.focus()
+          this.$refs.input?.focus()
         })
       }
     }
