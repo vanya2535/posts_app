@@ -11,7 +11,7 @@
     </div>
 
     <button
-      class="w-full pt-2 p-1 h-full text-sm text-start bg-gray-100 hover:bg-slate-200 hover:bg-opacity-70"
+      class="w-full pt-2 p-1 h-full text-sm text-start bg-gray-100 hover:bg-slate-200 hover:bg-opacity-70 outline-none"
       @click="menuVisible = !menuVisible"
     >
       {{ modelValue.key }}
@@ -23,6 +23,7 @@
     >
       <div v-if="filter" class="p-1">
         <input
+          ref="input"
           v-model="filterValue"
           class="w-full rounded outline-none px-1"
           type="text"
@@ -32,7 +33,7 @@
       <button
         v-for="option in filteredOptions"
         :key="option.key"
-        class="w-full p-1 text-start hover:bg-slate-200 hover:bg-opacity-70"
+        class="w-full p-1 text-start hover:bg-slate-200 hover:bg-opacity-70 outline-none"
         @click="selectOption(option)"
       >
         {{ option.key }}
@@ -94,6 +95,16 @@ export default {
           key.toLowerCase().includes(this.filterValue.toLowerCase()) &&
           key !== this.modelValue.key
       )
+    }
+  },
+
+  watch: {
+    menuVisible(value) {
+      if (value) {
+        this.$nextTick(() => {
+          this.$refs.input.focus()
+        })
+      }
     }
   },
 

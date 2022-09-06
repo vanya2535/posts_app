@@ -11,7 +11,7 @@
       />
 
       <button
-        class="w-full p-2 mx-auto rounded rounded-t-none border border-slate-200 shadow-sm shadow-slate-500 bg-gray-100 hover:bg-slate-200 hover:bg-opacity-70 font-medium disabled:opacity-50"
+        class="w-full p-2 mx-auto rounded rounded-t-none border border-slate-200 shadow-sm shadow-slate-500 bg-gray-100 hover:bg-slate-200 hover:bg-opacity-70 font-medium disabled:opacity-50 outline-none"
         :disabled="pending || !comment.length"
         type="submit"
       >
